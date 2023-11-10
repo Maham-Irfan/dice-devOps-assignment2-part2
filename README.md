@@ -457,15 +457,15 @@
     2023-11-10 15:45:31 ts=2023-11-10T10:45:31.166Z caller=main.go:1009 level=info msg="Server is ready to receive web requests."
     2023-11-10 15:45:31 ts=2023-11-10T10:45:31.166Z caller=manager.go:1009 level=info component="rule manager" msg="Starting rule manager..."
   #### Web: 
-  2023-11-10 15:45:32 > multicontainer@0.1.0 dev
-  2023-11-10 15:45:32 > next dev
-  2023-11-10 15:45:32 
-  2023-11-10 15:45:35    ▲ Next.js 14.0.2
-  2023-11-10 15:45:35    - Local:        http://localhost:3000
-  2023-11-10 15:45:35    - Environments: .env
-  2023-11-10 15:45:35 
-  2023-11-10 15:45:42  ✓ Ready in 7.9s
-  2023-11-10 15:48:12  ○ Compiling / ...
-  2023-11-10 15:48:26  ✓ Compiled / in 14.6s (472 modules)
-  2023-11-10 15:48:29  ○ Compiling /favicon.ico ...
-  2023-11-10 15:48:32  ✓ Compiled /favicon.ico in 3.6s (468 modules)
+      2023-11-10 15:45:32 > multicontainer@0.1.0 dev
+      2023-11-10 15:45:32 > next dev
+      2023-11-10 15:45:32 
+      2023-11-10 15:45:35    ▲ Next.js 14.0.2
+      2023-11-10 15:45:35    - Local:        http://localhost:3000
+      2023-11-10 15:45:35    - Environments: .env
+      2023-11-10 15:45:35 
+      2023-11-10 15:45:42  ✓ Ready in 7.9s
+      2023-11-10 15:48:12  ○ Compiling / ...
+      2023-11-10 15:48:26  ✓ Compiled / in 14.6s (472 modules)
+      2023-11-10 15:48:29  ○ Compiling /favicon.ico ...
+      2023-11-10 15:48:32  ✓ Compiled /favicon.ico in 3.6s (468 modules)
