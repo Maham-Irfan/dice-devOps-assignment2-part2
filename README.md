@@ -165,16 +165,16 @@
 * Added a new page under the src/app directory in the next app that displays the data obtained from the database
 * Modified the Dockerfile to add an additional command to generate a new prisma client to be able to access the data in database and added an additional environment variable in the file to display as a message in the new page
   ### File:
-    FROM node  
-    RUN mkdir -p /app  
-    WORKDIR /app  
-    COPY . .  
-    RUN npm install  
-    RUN npx prisma generate  
-    ENV store="Stationary Shop"  
-    EXPOSE 3000  
-    RUN npm run build  
-    ENTRYPOINT ["npm", "run", "dev"]  
+      FROM node  
+      RUN mkdir -p /app  
+      WORKDIR /app  
+      COPY . .  
+      RUN npm install  
+      RUN npx prisma generate  
+      ENV store="Stationary Shop"  
+      EXPOSE 3000  
+      RUN npm run build  
+      ENTRYPOINT ["npm", "run", "dev"]  
 
 * Rebilt the container using "docker compose build"
 ## Logs:
@@ -233,34 +233,34 @@
 ## Step 6: Volumes for back up of database
 * Modified the Docker compose file to create the volume named "postgres_data" to store backup of database and that volume is then binded to the folder inside the image that contains the database data
   ### File:
-    version: "3.9"  
-    services:  
-      web:  
-        build: .  
-        ports:  
-          - "3000:3000"  
-        depends_on:  
-          - database  
-        networks:  
-          - my_network  
-      database:  
-        image: postgres  
-        environment:  
-          - POSTGRES_USER=test_postgres  
-          - POSTGRES_PASSWORD=test_postgres  
-          - POSTGRES_DB=test_postgres  
-        networks:  
-          - my_network  
-        ports:  
-          - "5432:5432"  
-        volumes:  
-          - postgres_data:/var/lib/postgresql/data  
-    networks:  
-      my_network:  
-        driver: bridge  
-    volumes:  
-      postgres_data:  
-        name: "db_backup"  
+      version: "3.9"  
+      services:  
+        web:  
+          build: .  
+          ports:  
+            - "3000:3000"  
+          depends_on:  
+            - database  
+          networks:  
+            - my_network  
+        database:  
+          image: postgres  
+          environment:  
+            - POSTGRES_USER=test_postgres  
+            - POSTGRES_PASSWORD=test_postgres  
+            - POSTGRES_DB=test_postgres  
+          networks:  
+            - my_network  
+          ports:  
+            - "5432:5432"  
+          volumes:  
+            - postgres_data:/var/lib/postgresql/data  
+      networks:  
+        my_network:  
+          driver: bridge  
+      volumes:  
+        postgres_data:  
+          name: "db_backup"  
 
 * Executed the command "docker compose build" to build the new changes
   ### Logs:
