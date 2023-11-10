@@ -1,0 +1,43 @@
+version: "3.9"
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    networks:
+      - my_network
+    labels:
+      - "prometheus.enabled=true"
+    logging:
+      driver: json-file  
+      options:
+        max-size: "10m"  
+        max-file: "3"
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - "./prometheus.yml:/etc/prometheus/prometheus.yml"
+    networks:
+      - my_network
+    ports:
+      - 9090:9090
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_USER=test_postgres
+      - POSTGRES_PASSWORD=test_postgres
+      - POSTGRES_DB=test_postgres
+    networks:
+      - my_network
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+networks:
+  my_network:
+    driver: bridge
+volumes:
+  postgres_data:
+    name: "db_backup"
