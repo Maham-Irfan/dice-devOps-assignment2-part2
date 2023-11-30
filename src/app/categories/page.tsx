@@ -24,7 +24,6 @@ export default function Category(){
             if (response.ok) {
               const data = await response.json();
               setCategories(data.categories);
-              console.log(data.categories,"catt")
             } else {
               console.error('Failed to fetch categories');
             }
