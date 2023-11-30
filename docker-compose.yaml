@@ -1,11 +1,12 @@
 version: "3.9"
 services:
   web:
+    depends_on:
+      database:
+        condition: service_completed_successfully
     build: .
     ports:
       - "3000:3000"
-    depends_on:
-      - database
     networks:
       - my_network
     labels:
@@ -24,6 +25,8 @@ services:
     ports:
       - 9090:9090
   database:
+    container_name: test_postgres
+    hostname: myhost
     image: postgres
     environment:
       - POSTGRES_USER=test_postgres

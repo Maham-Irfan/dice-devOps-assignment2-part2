@@ -10,9 +10,8 @@ interface Category {
 
 export default function Category(){
     const [categories, setCategories] = useState<Category[]>([]);
-    const storeName = process.env.store || ''
+
     useEffect(() => {
-        
         const fetchData = async () => {
           try {
             const response = await fetch('/api/categories', {
@@ -39,10 +38,15 @@ export default function Category(){
     return(
       <main className={styles.main}>
         <div className={styles.description}>
-            This store is the {storeName}
-            {categories.map((category) => (
-            <div key={category.id}>{category.name} available = {category.stock}</div>
-            ))}
+            {categories.length > 0 ? (
+                categories.map((category) => (
+                    <div key={category.id}>
+                        {category.name} available = {category.stock}
+                    </div>
+                ))
+            ) : (
+                <div>Loading...</div>
+            )}
         </div>
       </main>
         

@@ -97,10 +97,13 @@
           ports:  
             - "3000:3000"  
           depends_on:  
-            - database  
+            database:  
+              condition: service_completed_successfully
           networks:  
             - my_network  
         database:  
+          container_name: test_postgres
+          hostname: myhost
           image: postgres  
           environment:  
             - POSTGRES_USER=test_postgres  
@@ -116,7 +119,7 @@
       
 * Added a database url variable in the .env file containing the same name, username and password as the one specified in the docker compose file under the database
   ### File:
-      DATABASE_URL = postgresql://test_postgres:test_postgres@localhost:5432/test_postgres
+      DATABASE_URL = postgresql://test_postgres:test_postgres@myhost:5432/test_postgres
   
 * Installed prisma in the next.js app using the command "npm i -D prisma" and "npm install @prisma/client"
 * Initialized prisma using the command "npx prisma init"
@@ -157,25 +160,11 @@
       2023-11-10 10:54:29 2023-11-10 05:54:29.385 UTC [62] LOG:  checkpoint complete: wrote 44 buffers (0.3%); 0 WAL file(s) added, 0 removed, 0 recycled; write=4.124 s,         sync=0.006 s, total=4.139 s; sync files=12, longest=0.003 s, average=0.001 s; distance=252 kB, estimate=252 kB
 
   * Added a new database in pgAdmin and connected it with this new database server
-  * Ran command "npx prisma db push" to push the schema to the database
-  * Ran command "npx prisma db seed" to fill the table using the seed file
 
 ## Step 5: Adding a new feature/page
 * Added API endpoint to get data from database
 * Added a new page under the src/app directory in the next app that displays the data obtained from the database
-* Modified the Dockerfile to add an additional command to generate a new prisma client to be able to access the data in database and added an additional environment variable in the file to display as a message in the new page
-  ### File:
-      FROM node  
-      RUN mkdir -p /app  
-      WORKDIR /app  
-      COPY . .  
-      RUN npm install  
-      RUN npx prisma generate  
-      ENV store="Stationary Shop"  
-      EXPOSE 3000  
-      RUN npm run build  
-      ENTRYPOINT ["npm", "run", "dev"]  
-
+* Added a shell script "migrate-and-start.sh" in the root directory of the app to push the database schema and the seed file and modified the Dockerfile to run this file at the end
 * Rebilt the container using "docker compose build"
 ## Logs:
       => [internal] load build definition from Dockerfile                                                               0.0s
